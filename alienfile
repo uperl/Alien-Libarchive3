@@ -1,5 +1,4 @@
 use alienfile;
-use Text::ParseWords qw( shellwords );
 
 plugin 'PkgConfig' => (
   pkg_name => 'libarchive',
@@ -17,51 +16,14 @@ share {
     version => qr/^libarchive-([0-9\.]+)\.tar\.gz$/,
   );
 
+  plugin Extract => 'tar.gz';
+
   # TODO: release Alien::Libxml2 if Alien::LibXML doesn't get its act together
   # TODO: lz4 https://github.com/lz4/lz4/releases 
   # TODO: http://zlib.net/
-  my @aliens = qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 );
-  requires $_ for @aliens;
-  
-  meta->around_hook(
-    build => sub {
-      my($orig, $build) = @_;
-
-      local $ENV{CFLAGS} = $ENV{CFLAGS};
-      local $ENV{LDFLAGS} = $ENV{LDFLAGS};
-
-      tie my @CFLAGS,  'Env::ShellWords', 'CFLAGS';
-      tie my @LDFLAGS, 'Env::ShellWords', 'LDFLAGS';
-      
-      my $cflags = $build->install_prop->{my_cflags} = [];
-      my $ldflags = $build->install_prop->{my_ldflags} = [];
-
-      foreach my $other (@aliens)
-      {
-        my $other_cflags;
-        my $other_libs;
-        if($other->install_type('share'))
-        {
-          $other_cflags = $other->cflags_static;
-          $other_libs   = $other->libs_static;
-        }
-        else
-        {
-          $other_cflags = $other->cflags;
-          $other_libs   = $other->libs;
-        }
-        unshift @$cflags,  grep /^-I/, shellwords($other_cflags);
-        unshift @$ldflags, grep /^-L/, shellwords($other_libs);
-      }
-      
-      unshift @CFLAGS, @$cflags;
-      unshift @LDFLAGS, @$ldflags;
-
-      $orig->($build);
-    }
+  plugin 'Build::SearchDep' => (
+    aliens => [ qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 ) ],
   );
-
-  plugin Extract => 'tar.gz';
 
   plugin 'Build::Autoconf' => ();
 
@@ -73,15 +35,4 @@ share {
     '%{make} install',
   ];
   
-  meta->after_hook(
-    'gather_share' => sub {
-      my($build) = @_;
-      
-      $build->runtime_prop->{$_} = join(' ', @{ $build->install_prop->{my_ldflags} }) . ' ' . $build->runtime_prop->{$_}
-        for qw( libs libs_static );
-      
-    },
-  );
-
 };
-
