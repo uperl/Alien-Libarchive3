@@ -75,23 +75,17 @@ sub pkg_config_name
 sub _macro_list
 {
   require Config;
-  require File::Temp;
-  require File::Spec;
 
-  my $alien = Alien::Libarchive->new;
-  my $cc = "$Config::Config{ccname} $Config::Config{ccflags} " . $alien->cflags;
+  my $cc = "$Config::Config{ccname} $Config::Config{ccflags} " . Alien::Libarchive3->cflags;
 
-  my $fn = File::Spec->catfile(File::Temp::tempdir( CLEANUP => 1 ), "test.c");
-
-  do {
-    open my $fh, '>', $fn;
-    print $fh "#include <archive.h>\n";
-    print $fh "#include <archive_entry.h>\n";
-    close $fh;
-  };
+  my $tempdir = Path::Tiny->tempdir;
+  my $file = path($tempdir, 'test.c');
+  $file->spew(
+    "#include <archive.h>\n#include <archive_entry.h>\n"
+  );
 
   my @list;
-  my $cmd = "$cc -E -dM $fn";
+  my $cmd = "$cc -E -dM $file";
   foreach my $line (`$cmd`)
   {
     if($line =~ /^#define ((AE|ARCHIVE)_\S+)/)

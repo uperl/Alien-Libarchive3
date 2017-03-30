@@ -14,8 +14,6 @@ $modules{$_} = $_ for qw(
   Alien::Build
   Alien::Build::MM
   ExtUtils::MakeMaker
-  File::Spec
-  File::Temp
   Path::Tiny
   Test2::Suite
   Test::Alien
