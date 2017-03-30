@@ -8,7 +8,7 @@ plugin 'PkgConfig' => (
 
 share {
 
-  requires 'Alien::Libxml2' => '0.01';
+  #requires 'Alien::Libxml2' => '0.01'; # disable for now till it is on CPAN
   requires 'Env::ShellWords' => '0.01';
 
   plugin Download => (
