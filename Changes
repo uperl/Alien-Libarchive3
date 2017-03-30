@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.28_02   2017-03-30 18:07:43 -0400
+  - Use Alien::Libxml2 to find libxml2
+
 0.28_01   2017-03-30 14:03:41 -0400
   - Add legacy Alien::Libarchive compat layer
 
