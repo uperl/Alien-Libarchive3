@@ -1,8 +1,15 @@
 language: perl
 sudo: false
 
+addons:
+  apt:
+    packages:
+      - libarchive-dev
+
 install:
   - perlbrew list
+  - cpanm -n App::af
+  - af missing | cpanm
   - dzil authordeps --missing | cpanm -n
   - dzil listdeps   --missing | cpanm -n
 
@@ -16,3 +23,10 @@ perl:
 
 script:
   - dzil test -v
+
+env:
+  global:
+    - ALIEN_BASE_NO_ABMB=1
+  matrix:
+    - ALIEN_INSTALL_TYPE=share
+    - ALIEN_INSTALL_TYPE=system
