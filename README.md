@@ -62,6 +62,8 @@ will use that.  If it cannot be found, the source code will be downloaded
 from the internet and it will be installed in a private share location
 for the use of other modules.
 
+The intention is for this to eventually replace [Alien::Libarchive](https://metacpan.org/pod/Alien::Libarchive)
+
 # SEE ALSO
 
 [Alien](https://metacpan.org/pod/Alien), [Alien::Base](https://metacpan.org/pod/Alien::Base), [Alien::Build::Manual::AlienUser](https://metacpan.org/pod/Alien::Build::Manual::AlienUser)

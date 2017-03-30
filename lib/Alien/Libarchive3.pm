@@ -8,6 +8,13 @@ use base qw( Alien::Base );
 # VERSION
 # ALIEN SYNOPSIS
 # ALIEN DESCRIPTION
+
+=pod
+
+The intention is for this to eventually replace L<Alien::Libarchive>
+
+=cut
+
 # ALIEN SEE ALSO
 
 1;
