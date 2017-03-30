@@ -27,7 +27,7 @@ share {
 
   plugin 'Build::Autoconf' => ();
 
-  my $configure_flags = '--disable-shared';
+  my $configure_flags = '--disable-shared --with-lzo2';
   $configure_flags .= ' --without-iconv' if $^O eq 'darwin';  
   build [
     "%{configure} $configure_flags",
