@@ -3,12 +3,19 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-rm -rf /tmp/Alien-Build /tmp/Dist-Zilla-Plugin-AlienBuild /tmp/Test-Alien
+rm -rf /tmp/Alien-Build /tmp/Alien-Libxml2
 
-cpanm -n Dist::Zilla
+cpanm -n Dist::Zilla App::af
 
 git clone --depth 2 https://github.com/plicease/Alien-Build.git /tmp/Alien-Build
 cd /tmp/Alien-Build
+dzil authordeps --missing | cpanm -n
+dzil listdeps   --missing | cpanm -n
+dzil install --install-command 'cpanm -n -v .'
+
+git clone --depth 2 https://github.com/plicease/Alien-Libxml2.git /tmp/Alien-Libxml2
+cd /tmp/Alien-Libxml2
+af missing | cpanm -n
 dzil authordeps --missing | cpanm -n
 dzil listdeps   --missing | cpanm -n
 dzil install --install-command 'cpanm -n -v .'

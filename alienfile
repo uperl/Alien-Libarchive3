@@ -7,7 +7,6 @@ plugin 'PkgConfig' => (
 
 share {
 
-  #requires 'Alien::Libxml2' => '0.01'; # disable for now till it is on CPAN
   requires 'Env::ShellWords' => '0.01';
 
   plugin Download => (
@@ -18,11 +17,10 @@ share {
 
   plugin Extract => 'tar.gz';
 
-  # TODO: release Alien::Libxml2 if Alien::LibXML doesn't get its act together
   # TODO: lz4 https://github.com/lz4/lz4/releases 
   # TODO: http://zlib.net/
   plugin 'Build::SearchDep' => (
-    aliens => [ qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 ) ],
+    aliens => [ qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 Alien::Libxml2 ) ],
   );
 
   plugin 'Build::Autoconf' => ();
