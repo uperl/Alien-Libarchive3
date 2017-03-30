@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.28_01   2017-03-30 14:03:41 -0400
   - Add legacy Alien::Libarchive compat layer
 
 0.28      2017-03-30 14:01:20 -0400
