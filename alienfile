@@ -5,6 +5,32 @@ plugin 'PkgConfig' => (
   minimum_version => '3.0.0',
 );
 
+plugin 'Probe::CBuilder' => (
+  libs    => '-larchive',
+  version => qr/version = '(.*?)[,']/,
+  program => q{
+#include <archive.h>
+#include <archive_entry.h>
+
+int main(int argc, char *argv[])
+{
+  int r;
+  archive_read a;
+  
+  a = archive_read_new();
+  if(a == NULL)
+    return 2;
+  
+  r = archive_read_free(a);
+  if(r != ARCHIVE_OK)
+    return 2;
+  
+  printf("version = '%s'\n", ARCHIVE_VERSION_ONLY_STRING);
+  return 0;
+}
+},
+);
+
 share {
 
   requires 'Env::ShellWords' => '0.01';
