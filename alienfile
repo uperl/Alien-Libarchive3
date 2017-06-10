@@ -59,10 +59,11 @@ share {
     '%{make} install',
   ];
   
-  build_ffi [
-    "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
-    '%{make}',
-    '%{make} install',
-  ];
-  
+  ffi {
+    build [
+      "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
+      '%{make}',
+      '%{make} install',
+    ];
+  };  
 };
