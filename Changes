@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.28_03   2017-06-10 06:36:13 -0400
   - Build dynamic libraries separately
 
 0.28_02   2017-03-30 18:07:43 -0400
