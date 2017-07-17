@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.28_05   2017-07-17 19:31:10 -0400
   - Drop support for _macro on non-linux
 
 0.28_04   2017-06-10 13:35:10 -0400
