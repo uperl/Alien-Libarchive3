@@ -18,7 +18,7 @@ $modules{$_} = $_ for qw(
   ExtUtils::CBuilder
   ExtUtils::MakeMaker
   Path::Tiny
-  Test2::Suite
+  Test2::V0
   Test::Alien
   Test::More
 );

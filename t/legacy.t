@@ -1,4 +1,4 @@
-use Test2::Bundle::Extended;
+use Test2::V0;
 use Alien::Libarchive;
 
 # this test doesn't look too closely at what the compat layer
@@ -63,6 +63,8 @@ subtest 'pkg_config_name' => sub {
 };
 
 subtest '_macro_list' => sub {
+
+  skip_all 'macros on linux only' unless $^O eq 'linux';
 
   my @macros = Alien::Libarchive->_macro_list;
   
