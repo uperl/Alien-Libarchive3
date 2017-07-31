@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.28_06   2017-07-30 21:40:07 -0400
   - Bump Alien::Build version for parallel make fix
   - Tweak netbsd flags
 
