@@ -67,3 +67,19 @@ share {
     ];
   };  
 };
+
+if($^O eq 'netbsd')
+{
+  meta->after_hook(
+    gather_system => sub {
+      my($build) = @_;
+      foreach my $flag (qw( libs libs_static))
+      {
+        if(defined $build->runtime_prop->{$flag} && $build->runtime_prop->{$flag} =~ m{-L/usr/pkg/lib})
+        {
+          $build->runtime_prop->{$flag} = '-Wl,-rpath,/usr/pkg/lib ' . $build->runtime_prop->{$flag};
+        }
+      }
+    },
+  );
+}
