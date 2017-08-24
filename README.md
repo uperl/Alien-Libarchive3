@@ -42,7 +42,7 @@ In your script or module:
     use Alien::Libarchive3;
     use Env qw( @PATH );
     
-    unshift @ENV, Alien::Libarchive3->bin_dir;
+    unshift @PATH, Alien::Libarchive3->bin_dir;
 
 In your [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus) script or module:
 

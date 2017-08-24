@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - production release identical to 0.028_06 release
 
 0.28_06   2017-07-30 21:40:07 -0400
   - Bump Alien::Build version for parallel make fix
