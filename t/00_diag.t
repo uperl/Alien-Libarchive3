@@ -23,13 +23,30 @@ $modules{$_} = $_ for qw(
 );
 
 $post_diag = sub {
-  require Alien::Libarchive3;
-  diag "version        = ", Alien::Libarchive3->config('version');
-  diag "cflags         = ", Alien::Libarchive3->cflags;
-  diag "cflags_static  = ", Alien::Libarchive3->cflags_static;
-  diag "libs           = ", Alien::Libarchive3->libs;
-  diag "libs_static    = ", Alien::Libarchive3->libs_static;
-  diag "bin_dir        = ", $_ for Alien::Libarchive3->bin_dir;
+  foreach my $alien (qw( Alien::m4 )) {
+    eval qq{ require $alien; 1 };
+    next if $@;
+    diag "[$alien]";
+    diag "install_type   = ", $alien->install_type;
+    diag "version        = ", $alien->version if defined $alien->version;
+    diag "bin_dir        = ", $_ for $alien->bin_dir;
+    diag '';
+    diag '';
+  }
+  foreach my $alien (qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 Alien::Libxml2 Alien::Libarchive3 )) {
+    eval qq{ require $alien; 1 };
+    next if $@;
+    diag "[$alien]";
+    diag "install_type   = ", $alien->install_type;
+    diag "version        = ", $alien->version if defined $alien->version;
+    diag "cflags         = ", $alien->cflags;
+    diag "cflags_static  = ", $alien->cflags_static;
+    diag "libs           = ", $alien->libs;
+    diag "libs_static    = ", $alien->libs_static;
+    diag "bin_dir        = ", $_ for $alien->bin_dir;
+    diag '';
+    diag '';
+  }
 };
 
 my @modules = sort keys %modules;

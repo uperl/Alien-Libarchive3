@@ -4,11 +4,14 @@ sudo: false
 addons:
   apt:
     packages:
+      - liblzo2-dev
+      - nettle-dev
       - libarchive-dev
 
 install:
   - perlbrew list
   - ./maint/travis-install-mods
+  - cpanm Alien::Build::Plugin::Probe::OverrideCI
   - cpanm -n App::af
   - af missing | cpanm
   - dzil authordeps --missing | cpanm -n
@@ -29,6 +32,7 @@ script:
 env:
   global:
     - ALIEN_BASE_NO_ABMB=1
+    - ALIEN_BUILD_PRELOAD=Probe::OverrideCI
   matrix:
-    - ALIEN_INSTALL_TYPE=share
-    - ALIEN_INSTALL_TYPE=system
+    - ALIEN_INSTALL_TYPE_CI=share
+    - ALIEN_INSTALL_TYPE_CI=system
