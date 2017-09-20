@@ -11,8 +11,7 @@ addons:
 install:
   - perlbrew list
   - ./maint/travis-install-mods
-  - cpanm Alien::Build::Plugin::Probe::OverrideCI
-  - cpanm -n App::af
+  - af missing --plugin | cpanm n
   - af missing | cpanm
   - dzil authordeps --missing | cpanm -n
   - dzil listdeps   --missing | cpanm -n
