@@ -11,7 +11,7 @@ addons:
 install:
   - perlbrew list
   - ./maint/travis-install-mods
-  - af missing --plugin | cpanm n
+  - af missing --plugin | cpanm -n
   - af missing | cpanm
   - dzil authordeps --missing | cpanm -n
   - dzil listdeps   --missing | cpanm -n
