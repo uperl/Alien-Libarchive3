@@ -13,16 +13,16 @@ subtest 'main' => sub {
     note "dlls:   ", scalar Alien::Libarchive->dlls;
 
     ok 1;
-    
+
   };
-  
+
   subtest 'list' => sub {
-  
+
     note "cflags: ", $_ for Alien::Libarchive->cflags;
     note "libs:   ", $_ for Alien::Libarchive->libs;
     note "dlls:   ", $_ for Alien::Libarchive->dlls;
 
-    ok 1;  
+    ok 1;
   };
 
 };
@@ -38,7 +38,7 @@ subtest 'version' => sub {
 subtest 'install_type' => sub {
 
   my $type = Alien::Libarchive->install_type;
-  
+
   like $type, qr/^(share|system)$/;
 
 };
@@ -46,9 +46,9 @@ subtest 'install_type' => sub {
 subtest 'pkg_config_dir' => sub {
 
   my $dir = Alien::Libarchive->pkg_config_dir;
-  
+
   ok $dir;
-  
+
   note "dir = $dir";
 
 };
@@ -67,9 +67,9 @@ subtest '_macro_list' => sub {
   skip_all 'macros on linux only' unless $^O eq 'linux';
 
   my @macros = Alien::Libarchive->_macro_list;
-  
+
   ok(@macros > 0, 'at least one macro');
-  
+
   note join ' ', @macros;
 
 };

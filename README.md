@@ -1,4 +1,4 @@
-# Alien::Libarchive3 ![linux](https://github.com/plicease/Alien-Libarchive3/workflows/linux/badge.svg)
+# Alien::Libarchive3 ![linux](https://github.com/uperl/Alien-Libarchive3/workflows/linux/badge.svg)
 
 Find or install libarchive version 3.x or better
 
