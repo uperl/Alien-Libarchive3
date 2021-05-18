@@ -30,6 +30,7 @@ $post_diag = sub {
     diag "install_type   = ", $alien->install_type;
     diag "version        = ", $alien->version if defined $alien->version;
     diag "bin_dir        = ", $_ for $alien->bin_dir;
+    diag "dynamic_libs   = ", $_ for $alien->dynamic_libs;
     diag '';
     diag '';
   }
@@ -44,6 +45,7 @@ $post_diag = sub {
     diag "libs           = ", $alien->libs;
     diag "libs_static    = ", $alien->libs_static;
     diag "bin_dir        = ", $_ for $alien->bin_dir;
+    diag "dynamic_libs   = ", $_ for $alien->dynamic_libs;
     diag '';
     diag '';
   }
