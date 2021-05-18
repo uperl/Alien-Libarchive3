@@ -14,6 +14,13 @@ xs_ok $xs, with_subtest {
   ok 1;
 };
 
+if(Alien::Libarchive3->install_type eq 'share')
+{
+  run_ok(['bsdtar', '--version'])
+    ->success
+    ->note;
+}
+
 done_testing;
 
 __DATA__
