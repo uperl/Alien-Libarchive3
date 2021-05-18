@@ -1,5 +1,18 @@
 use alienfile;
 use FFI::CheckLib qw( find_lib_or_die );
+use File::Glob qw( bsd_glob );
+use Env qw( @PKG_CONFIG_PATH );
+
+my @lib;
+
+if($^O eq 'darwin')
+{
+  if(-d '/usr/local/Cellar/libarchive')
+  {
+    push @PKG_CONFIG_PATH, grep { -d $_ } bsd_glob '/usr/local/Cellar/libarchive/*/lib/pkgconfig';
+    push @lib, grep { -d $_ } bsd_glob '/usr/local/Cellar/libarchive/*/lib'
+  }
+}
 
 plugin 'PkgConfig' => (
   pkg_name => 'libarchive',
@@ -40,7 +53,7 @@ meta->around_hook('probe' => sub {
   find_lib_or_die lib => 'archive', symbol => [
     'archive_read_new',
     'archive_read_free',
-  ];
+  ], libpath => [@lib];
   return $type;
 });
 
