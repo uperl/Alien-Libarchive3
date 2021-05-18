@@ -1,4 +1,5 @@
 use alienfile;
+use FFI::CheckLib qw( find_lib_or_die );
 
 plugin 'PkgConfig' => (
   pkg_name => 'libarchive',
@@ -30,6 +31,18 @@ int main(int argc, char *argv[])
 }
 },
 );
+
+meta->around_hook('probe' => sub {
+  my $orig = shift;
+  my $build = shift;
+  my $type = $orig->($build, @_);
+  return $type if $type eq 'share';
+  find_lib_or_die lib => 'archive', symbol => [
+    'archive_read_new',
+    'archive_read_free',
+  ];
+  return $type;
+});
 
 share {
 

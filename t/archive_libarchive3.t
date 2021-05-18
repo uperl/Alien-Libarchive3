@@ -11,7 +11,13 @@ xs_ok $xs, with_subtest {
     0,
     "basic create and free of archive handle"
   );
-  ok 1;
+};
+
+ffi_ok { symbols => ['archive_read_new','archive_read_free'] }, with_subtest {
+  my($ffi) = @_;
+  my $ptr = $ffi->function( archive_read_new => [] => 'opaque' )->call;
+  ok $ptr, 'archive_read_new returned non-null pointer';
+  is($ffi->function( archive_read_free => ['opaque'] => 'int' )->call($ptr), 0, 'archive_read_free returned ARCHIVE_OK');
 };
 
 if(Alien::Libarchive3->install_type eq 'share')
