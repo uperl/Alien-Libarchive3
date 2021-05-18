@@ -1,4 +1,4 @@
-# Alien::Libarchive3 ![linux](https://github.com/uperl/Alien-Libarchive3/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Alien-Libarchive3/workflows/macos/badge.svg) ![cygwin](https://github.com/uperl/Alien-Libarchive3/workflows/cygwin/badge.svg)
+# Alien::Libarchive3 ![linux](https://github.com/uperl/Alien-Libarchive3/workflows/linux/badge.svg) ![macos](https://github.com/uperl/Alien-Libarchive3/workflows/macos/badge.svg) ![windows](https://github.com/uperl/Alien-Libarchive3/workflows/windows/badge.svg) ![cygwin](https://github.com/uperl/Alien-Libarchive3/workflows/cygwin/badge.svg)
 
 Find or install libarchive version 3.x or better
 
