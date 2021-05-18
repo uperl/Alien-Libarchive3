@@ -6,11 +6,11 @@ alien_ok 'Alien::Libarchive3';
 
 my $xs = do { local $/; <DATA> };
 xs_ok $xs, with_subtest {
-  #is(
-  #  MyTest::the_test(),
-  #  0,
-  #  "basic create and free of archive handle"
-  #);
+  is(
+    MyTest::the_test(),
+    0,
+    "basic create and free of archive handle"
+  );
   ok 1;
 };
 
