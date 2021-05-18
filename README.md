@@ -1,63 +1,68 @@
-# Alien::Libarchive3 [![Build Status](https://secure.travis-ci.org/plicease/Alien-Libarchive3.png)](http://travis-ci.org/plicease/Alien-Libarchive3)
+# Alien::Libarchive3 ![linux](https://github.com/plicease/Alien-Libarchive3/workflows/linux/badge.svg)
 
 Find or install libarchive version 3.x or better
 
 # SYNOPSIS
 
-In your Build.PL:
-
-    use Module::Build;
-    use Alien::Libarchive3;
-    my $builder = Module::Build->new(
-      ...
-      configure_requires => {
-        'Alien::Libarchive3' => '0',
-        ...
-      },
-      extra_compiler_flags => Alien::Libarchive3->cflags,
-      extra_linker_flags   => Alien::Libarchive3->libs,
-      ...
-    );
-    
-    $build->create_build_script;
-
 In your Makefile.PL:
 
-    use ExtUtils::MakeMaker;
-    use Config;
-    use Alien::Libarchive3;
-    
-    WriteMakefile(
-      ...
-      CONFIGURE_REQUIRES => {
-        'Alien::Libarchive3' => '0',
-      },
-      CCFLAGS => Alien::Libarchive3->cflags . " $Config{ccflags}",
-      LIBS    => [ Alien::Libarchive3->libs ],
-      ...
-    );
+```perl
+use ExtUtils::MakeMaker;
+use Alien::Base::Wrapper ();
+
+WriteMakefile(
+  Alien::Base::Wrapper->new('Alien::Libarchive3')->mm_args2(
+    # MakeMaker args
+    NAME => 'My::XS',
+    ...
+  ),
+);
+```
+
+In your Build.PL:
+
+```perl
+use Module::Build;
+use Alien::Base::Wrapper qw( Alien::Libarchive3 !export );
+
+my $builder = Module::Build->new(
+  ...
+  configure_requires => {
+    'Alien::Libarchive3' => '0',
+    ...
+  },
+  Alien::Base::Wrapper->mb_args,
+  ...
+);
+
+$build->create_build_script;
+```
 
 In your script or module:
 
-    use Alien::Libarchive3;
-    use Env qw( @PATH );
-    
-    unshift @PATH, Alien::Libarchive3->bin_dir;
+```perl
+use Alien::Libarchive3;
+use Env qw( @PATH );
+
+unshift @PATH, Alien::Libarchive3->bin_dir;
+```
 
 In your [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus) script or module:
 
-    use FFI::Platypus;
-    use Alien::Libarchive3;
-    
-    my $ffi = FFI::Platypus->new(
-      lib => [ Alien::Libarchive3->dynamic_libs ],
-    );
+```perl
+use FFI::Platypus;
+use Alien::Libarchive3;
+
+my $ffi = FFI::Platypus->new(
+  lib => [ Alien::Libarchive3->dynamic_libs ],
+);
+```
 
 # DESCRIPTION
 
-This distribution provides libarchive so that it can be used by other 
-Perl distributions that are on CPAN.  It does this by first trying to 
-detect an existing install of libarchive on your system.  If found it 
+This distribution provides libarchive so that it can be used by other
+Perl distributions that are on CPAN.  It does this by first trying to
+detect an existing install of libarchive on your system.  If found it
 will use that.  If it cannot be found, the source code will be downloaded
 from the internet and it will be installed in a private share location
 for the use of other modules.
