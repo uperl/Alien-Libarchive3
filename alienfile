@@ -86,6 +86,8 @@ share {
   ];
 
   ffi {
+    $configure_flags = "--bindir=%{.install.autoconf_prefix}/dynamic $configure_flags"
+      if $^O eq 'MSWin32';
     build [
       "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
       '%{make}',
