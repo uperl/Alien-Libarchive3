@@ -52,8 +52,8 @@ meta->around_hook('probe' => sub {
   my $type = $orig->($build, @_);
   return $type if $type eq 'share';
   find_lib_or_die lib => 'archive', symbol => [
-    'archive_read_new',
     'archive_read_free',
+    'archive_write_free'
   ], libpath => [@lib];
   return $type;
 });
