@@ -1,4 +1,5 @@
 use alienfile;
+use Config;
 use FFI::CheckLib qw( find_lib_or_die );
 use File::Glob qw( bsd_glob );
 use Env qw( @PKG_CONFIG_PATH );
@@ -16,7 +17,7 @@ if($^O eq 'darwin')
 
 plugin 'PkgConfig' => (
   pkg_name => 'libarchive',
-  minimum_version => '3.0.0',
+  minimum_version => '3.0.2',
 );
 
 plugin 'Probe::CBuilder' => (
@@ -75,23 +76,39 @@ share {
     aliens => [ qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 Alien::Libxml2 ) ],
   );
 
-  plugin 'Build::Autoconf' => ( ffi => 1 );
-
   my $configure_flags = '--with-lzo2';
   $configure_flags .= ' --without-iconv' if $^O eq 'darwin';
-  build [
-    "%{configure} --disable-shared --enable-static $configure_flags",
-    '%{make}',
-    '%{make} install',
-  ];
 
-  ffi {
+  if($^O eq 'MSWin32' && $Config{myuname} =~ /strawberry-?perl/)
+  {
+    plugin 'Build::Autoconf' => ( ffi => 1 );
+
     build [
-      "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
+      "%{configure} --disable-shared --enable-static $configure_flags",
       '%{make}',
       '%{make} install',
     ];
-  };
+
+    ffi {
+      build [
+        "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
+        '%{make}',
+        '%{make} install',
+      ];
+    };
+  }
+  else
+  {
+    plugin 'Build::Autoconf' => ( ffi => 0 );
+
+    build [
+      "%{configure} --enable-shared --enable-static --enable-bsdtar=static --enable-bsdcpio=static --enable-bsdcat=static $configure_flags",
+      '%{make}',
+      '%{make} install',
+    ];
+
+    plugin 'Gather::IsolateDynamic';
+  }
 };
 
 if($^O eq 'netbsd')
