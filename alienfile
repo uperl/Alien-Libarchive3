@@ -75,7 +75,7 @@ share {
     aliens => [ qw( Alien::Nettle Alien::xz Alien::LZO Alien::Libbz2 Alien::Libxml2 ) ],
   );
 
-  plugin 'Build::Autoconf' => ();
+  plugin 'Build::Autoconf' => ( ffi => 1 );
 
   my $configure_flags = '--with-lzo2';
   $configure_flags .= ' --without-iconv' if $^O eq 'darwin';
@@ -86,8 +86,6 @@ share {
   ];
 
   ffi {
-    $configure_flags = "--bindir=%{.install.autoconf_prefix}/dynamic $configure_flags"
-      if $^O eq 'MSWin32';
     build [
       "%{configure} --enable-shared --disable-static --libdir=%{.install.autoconf_prefix}/dynamic $configure_flags",
       '%{make}',
