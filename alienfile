@@ -79,7 +79,7 @@ share {
   my $configure_flags = '--with-lzo2';
   $configure_flags .= ' --without-iconv' if $^O eq 'darwin';
 
-  if($^O eq 'MSWin32' && $Config{myuname} =~ /strawberry-?perl/)
+  if($^O eq 'MSWin32')
   {
     plugin 'Build::Autoconf' => ( ffi => 1 );
 
