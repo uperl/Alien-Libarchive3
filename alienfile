@@ -17,7 +17,7 @@ if($^O eq 'darwin')
 
 plugin 'PkgConfig' => (
   pkg_name => 'libarchive',
-  minimum_version => '3.0.2',
+  minimum_version => '3.2.0',
 );
 
 plugin 'Probe::CBuilder' => (
@@ -53,7 +53,8 @@ meta->around_hook('probe' => sub {
   return $type if $type eq 'share';
   find_lib_or_die lib => 'archive', symbol => [
     'archive_read_free',
-    'archive_write_free'
+    'archive_write_free',
+    'archive_free',
   ], libpath => [@lib];
   return $type;
 });
