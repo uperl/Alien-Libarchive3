@@ -34,14 +34,14 @@ sub new
 
 sub cflags
 {
-  wantarray   ## no critic (Freenode::Wantarray)
+  wantarray   ## no critic (Community::Wantarray)
     ? shellwords(Alien::Libarchive3->cflags)
     : Alien::Libarchive3->cflags;
 }
 
 sub libs
 {
-  wantarray   ## no critic (Freenode::Wantarray)
+  wantarray   ## no critic (Community::Wantarray)
     ? shellwords(Alien::Libarchive3->libs)
     : Alien::Libarchive3->libs;
 }
@@ -49,7 +49,7 @@ sub libs
 sub dlls
 {
   my @libs = Alien::Libarchive3->dynamic_libs;
-  wantarray ? @libs : $libs[0];   ## no critic (Freenode::Wantarray)
+  wantarray ? @libs : $libs[0];   ## no critic (Community::Wantarray)
 }
 
 sub version
