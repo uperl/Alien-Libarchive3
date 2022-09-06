@@ -67,7 +67,18 @@ will use that.  If it cannot be found, the source code will be downloaded
 from the internet and it will be installed in a private share location
 for the use of other modules.
 
-The intention is for this to eventually replace [Alien::Libarchive](https://metacpan.org/pod/Alien::Libarchive)
+The older [Alien::Libarchive](https://metacpan.org/pod/Alien::Libarchive) exists as a compatibility layer over this module.
+
+# CAVEATS
+
+On some older operating systems some of the dependencies may not build, [Alien::Nettle](https://metacpan.org/pod/Alien::Nettle)
+does not build correctly with older versions of OpenSSL.  If you do not need the encryption
+features provided by [Alien::Nettle](https://metacpan.org/pod/Alien::Nettle) and `nettle`, then you can skip it when you install
+this module:
+
+```
+$ env ALIEN_LIBARCHIVE_DEPS=Alien::xz,Alien::LZO,Alien::Libbz2,Alien::Libxml2 cpanm Alien::Libarchive3
+```
 
 # SEE ALSO
 
