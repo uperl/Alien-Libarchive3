@@ -64,8 +64,7 @@ share {
   requires 'Env::ShellWords' => '0.01';
 
   plugin Download => (
-    url     => 'http://libarchive.org',
-    #url     => 'file:///Users/ollisg/opt/libarchive/3.3.1/src/',
+    url     => 'https://libarchive.org',
     version => qr/^libarchive-([0-9\.]+)\.tar\.gz$/,
   );
 
